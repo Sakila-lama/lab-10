@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- STEP 1: Set up the document's head with meta, title, and CSS links -->
+  <meta charset="utf-8" />
+  <title>Object Prototypes | COMP1073 Client-Side JavaScript</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="css/normalize.css" rel="stylesheet" />
+  <link href="css/styles.css" rel="stylesheet" />
+</head>
+
+<body>
+  <!-- STEP 2: Define the header and section elements where content will be dynamically added -->
+  <header>
+    <!-- The HEADER content will be populated by JavaScript -->
+  </header>
+  <section>
+    <!-- The SECTION content will be populated by JavaScript -->
+  </section>
+  <script>
+    /* STEP 3: Bind the HEADER and SECTION elements to JavaScript variables */
+    var header = document.querySelector('header');
+    var section = document.querySelector('section');
+
+    /* STEP 4: Define the URL of the JSON file containing the ice cream flavors */
+    var requestURL = 'js/i-scream.json';
+    
+    /* STEP 5: Create a new XMLHttpRequest object to handle the data request */
+    var request = new XMLHttpRequest();
+    
+    /* STEP 6: Set up the request to retrieve data from the given URL */
+    request.open('GET', requestURL);
+    
+    /* STEP 7: Set the responseType to 'json' to handle the response data as JSON */
+    request.responseType = 'json';
+    
+    /* STEP 8: Send the request to the server */
+    request.send();
+    
+    /* STEP 9: Define an event handler for the 'onload' event to process the data after it is returned */
+    request.onload = function() {
+      var iScreamInc = request.response;
+      populateHeader(iScreamInc);
+      showTopFlavors(iScreamInc);
+    }
+
+    /* STEP 10: Create the populateHeader function to insert company info into the HEADER element */
+    function populateHeader(jsonObj) {
+      var headerH1 = document.createElement('h1');
+      headerH1.textContent = jsonObj['companyName'];
+      header.appendChild(headerH1);
+
+      var headerPara = document.createElement('p');
+      headerPara.textContent = 'Head Office: ' + jsonObj['headOffice'] + ', Established: ' + jsonObj['established'];
+      header.appendChild(headerPara);
+    }
+
+    /* STEP 11: Create the showTopFlavors function to display the ice cream flavors in the SECTION element */
+    function showTopFlavors(jsonObj) {
+      var topFlavors = jsonObj['topFlavors'];
+      for (var i = 0; i < topFlavors.length; i++) {
+        /* STEP 11a: Create HTML elements for each ice cream flavor's details */
+        var article = document.createElement('article');
+        var h2 = document.createElement('h2');
+        var img = document.createElement('img');
+        var p1 = document.createElement('p');
+        var p2 = document.createElement('p');
+        var list = document.createElement('ul');
+
+        /* STEP 11b: Set the attributes and text for the elements based on the JSON data */
+        img.setAttribute('src', 'images/' + topFlavors[i].image);
+        img.setAttribute('alt', topFlavors[i].name);
+        h2.textContent = topFlavors[i].name;
+        p1.textContent = 'Calories: ' + topFlavors[i].calories;
+        p2.textContent = 'Type: ' + topFlavors[i].type;
+
+        /* STEP 11c: Create a list of ingredients for each flavor */
+        var ingredients = topFlavors[i].ingredients;
+        for (var j = 0; j < ingredients.length; j++) {
+          var listItem = document.createElement('li');
+          listItem.textContent = ingredients[j];
+          list.appendChild(listItem);
+        }
+
+        /* STEP 11d: Append all elements to the ARTICLE, then the ARTICLE to the SECTION */
+        article.appendChild(img);
+        article.appendChild(h2);
+        article.appendChild(p1);
+        article.appendChild(p2);
+        article.appendChild(list);
+        section.appendChild(article);
+      }
+    }
+  </script>
+</body>
+</html>
