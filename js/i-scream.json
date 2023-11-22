@@ -36,6 +36,28 @@
         "candy sprinkles"
       ],
       "image": "strawberry-sprinkle.svg"
+    },
+    {
+      "name": "Matcha Bliss Delight",
+      "calories": 489,
+      "type": "frozen yogurt",
+      "ingredients": [
+        "matcha powder",
+        "sweetened condensed milk",
+        "heavy cream"
+      ],
+      "image": "ice-cream-xtra1.svg"
+    },
+    {
+      "name": "Banana Cream Dream",
+      "calories": 390,
+      "type": "frozen yogurt",
+      "ingredients": [
+        "caramelized bananas",
+        "toasted pecans",
+        "vanilla bean-infused cream"
+      ],
+      "image": "ice-cream-xtra2.svg"
     }
   ]
 }
